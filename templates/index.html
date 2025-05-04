@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat FURIA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1 style="text-align: center; color: #ffcc00;">Chat FURIA</h1>
+
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div>
+            <input type="text" id="input-msg" placeholder="Digite sua pergunta...">
+            <button onclick="enviarMensagem()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        async function enviarMensagem() {
+            const msg = document.getElementById("input-msg").value;
+            if (!msg) return;
+
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div><b>Você:</b> ${msg}</div>`;
+
+            const resposta = await fetch("/responder", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({mensagem: msg})
+            });
+            const dados = await resposta.json();
+            chatBox.innerHTML += `<div><b>Bot:</b> ${dados.resposta}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll para o final
+            document.getElementById("input-msg").value = "";
+        }
+    </script>
+</body>
+</html>
