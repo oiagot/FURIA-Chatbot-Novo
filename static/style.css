@@ -97,6 +97,15 @@
     flex-direction: column;
     padding: 20px;
   }
+  /* Avatar redondo dentro do chat */
+#chat-container .avatar {
+    width: 32px;          /* Tamanho do avatar */
+    height: 32px;         /* Tamanho do avatar */
+    object-fit: cover;    /* Garante que a imagem seja cortada para se ajustar ao tamanho */
+    border-radius: 50%;   /* Torna a imagem redonda */
+    margin-right: 8px;    /* Espaçamento entre o avatar e o texto */
+  }
+  
   
   /* menu rápido */
   #quick-menu {
@@ -251,4 +260,27 @@
     object-fit: contain; /* garante que o ícone não distorça */
     margin-right: 8px; /* distância entre ícone e texto */
   }
+
+  /* Alinhar corretamente a imagem do usuário no chat */
+#chat-box .mensagem {
+    display: flex;
+    align-items: center; /* Centraliza o ícone verticalmente */
+    gap: 10px;  /* Espaçamento entre o ícone e o texto */
+  }
+  
+  #chat-box .usuario .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Tornar redonda */
+    object-fit: cover;
+  }
+  
+  /* Alinhar a mensagem do bot corretamente */
+  #chat-box .bot .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
   
