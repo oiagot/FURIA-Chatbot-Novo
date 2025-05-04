@@ -7,35 +7,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-    <h1 style="text-align: center; color: #ffcc00;">Chat FURIA</h1>
-
+    <h1>Chat FURIA</h1>
     <div id="chat-container">
         <div id="chat-box"></div>
-        <div>
+        <div id="input-container">
             <input type="text" id="input-msg" placeholder="Digite sua pergunta...">
             <button onclick="enviarMensagem()">Enviar</button>
+            <button id="back-button" onclick="voltarInicio()">Início</button>
         </div>
     </div>
 
     <script>
+        // Função para enviar a mensagem
         async function enviarMensagem() {
             const msg = document.getElementById("input-msg").value;
             if (!msg) return;
-
+    
             const chatBox = document.getElementById("chat-box");
             chatBox.innerHTML += `<div><b>Você:</b> ${msg}</div>`;
-
+    
+            // Limpa a caixa de entrada
+            document.getElementById("input-msg").value = "";
+    
+            // Envia a mensagem para o servidor
             const resposta = await fetch("/responder", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({mensagem: msg})
             });
+    
             const dados = await resposta.json();
-            chatBox.innerHTML += `<div><b>Bot:</b> ${dados.resposta}</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll para o final
-            document.getElementById("input-msg").value = "";
+            
+            // Simula o delay do bot para responder de forma mais natural
+            setTimeout(() => {
+                chatBox.innerHTML += `<div><b>Bot:</b> ${dados.resposta}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll para o final
+            }, 1000); // Delay de 1 segundo para simular o "pensamento" do bot
         }
+    
+        // Adiciona o evento de tecla pressionada para enviar ao apertar "Enter"
+        document.getElementById("input-msg").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Evita o comportamento padrão de enviar um "enter" no input
+                enviarMensagem();  // Chama a função de envio
+            }
+        });
     </script>
 </body>
 </html>

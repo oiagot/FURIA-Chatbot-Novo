@@ -1,64 +1,119 @@
+/* Definindo o fundo cinza */
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: white;
+    background-color: #696969;  /* Cor de fundo cinza claro */
+    font-family: Arial, sans-serif;  /* Definindo uma fonte mais limpa */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     height: 100vh;
 }
 
+/* Título centralizado no topo */
+h1 {
+    text-align: center;  /* Centraliza o texto */
+    color: #ffcc00;  /* Cor amarela para o título */
+    margin-top: 50px;  /* Espaço do topo da página */
+    font-size: 3em;  /* Aumenta o tamanho do título */
+    font-weight: bold;  /* Deixa o título em negrito */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);  /* Sombra leve no texto */
+    margin-bottom: 20px;  /* Espaço abaixo do título */
+}
+
+/* Caixa do chat */
 #chat-container {
-    width: 90%;
-    max-width: 600px;
-    height: 80vh;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-}
-
-#chat-box {
-    flex: 1;
+    width: 100%;
+    max-width: 600px;  /* Limita a largura do chat */
+    background-color: #fff;  /* Fundo branco para a área do chat */
+    border-radius: 10px;  /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave para o container */
     padding: 20px;
-    overflow-y: scroll;
-    background-color: #333;
-    border-radius: 10px;
-    margin: 10px;
-    font-size: 16px;
+    margin-top: 20px;
 }
 
-input {
-    width: 80%;
-    padding: 12px;
-    border: 2px solid #ffcc00;
+/* Estilo para a área do chat */
+#chat-box {
+    height: 300px;
+    overflow-y: auto;
+    background-color: #333333;  /* Cinza escuro para o fundo */
+    padding: 10px;
     border-radius: 5px;
-    font-size: 16px;
-    margin: 10px;
-    outline: none;
+    margin-bottom: 10px;
+    color: white;  /* Cor das letras brancas */
+    font-weight: bold;  /* Fonte mais gordinha */
+    font-family: 'Arial', sans-serif;  /* Garantindo a fonte Arial */
 }
 
-button {
-    width: 15%;
+
+/* Estilo para o input de mensagem */
+#input-msg {
+    width: calc(100% - 100px);  /* Faz o input ocupar o restante da largura */
     padding: 12px;
+    border-radius: 15px;  /* Bordas arredondadas */
+    border: 2px solid #ccc;
+    margin-right: 10px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Transições suaves */
+}
+
+#input-msg:focus {
+    border-color: #ffcc00;  /* Cor dourada para o foco */
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);  /* Sombra dourada para foco */
+    outline: none;  /* Remove a linha de foco padrão */
+}
+
+/* Estilo para os botões (Enviar e Voltar ao Início) */
+button {
+    padding: 12px 20px;
     background-color: #ffcc00;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;  /* Bordas arredondadas */
     cursor: pointer;
-    font-size: 16px;
+    color: white;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;  /* Transições suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+    margin-right: 10px;  /* Espaço entre os botões */
 }
 
 button:hover {
-    background-color: #ff9900;
+    background-color: #e6b800;  /* Dourado mais escuro ao passar o mouse */
+    transform: translateY(-2px);  /* Efeito de elevação ao passar o mouse */
 }
 
-#chat-box div {
-    margin-bottom: 10px;
+button:active {
+    background-color: #d9a100;  /* Dourado ainda mais escuro ao clicar */
+    transform: translateY(0);  /* Volta ao normal após o clique */
 }
 
-#chat-box b {
-    color: #ffcc00;
+/* Estilo para o botão "Voltar ao Início" */
+#back-button {
+    padding: 12px 20px;
+    background-color: #ff6600;  /* Cor diferente para o botão de voltar */
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    color: white;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#back-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+}
+
+#back-button:active {
+    background-color: #cc5200;
+    transform: translateY(0);
+}
+
+/* Estilo para o container de input e botões */
+#input-container {
+    display: flex;  /* Para alinhar os botões lado a lado */
+    justify-content: space-between;  /* Dá espaço entre os botões */
+    align-items: center;  /* Alinha verticalmente os botões */
 }
