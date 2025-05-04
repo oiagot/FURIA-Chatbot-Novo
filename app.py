@@ -5,7 +5,10 @@ app = Flask(__name__)
 
 # Respostas diretas baseadas em palavras-chave
 respostas = {
+    "introdução": "Fala, guerreiro! Eu sou a FURIA, o bot oficial da torcida mais insana do CS. Vamos conversar sobre o time mais brabo do cenário!",
+    "falar sobre jogos": "A FURIA joga sempre com garra! Nosso próximo desafio é contra a G2, vai ser imperdível!",
     "proximo jogo": "O próximo jogo da FURIA é dia 05/05 às 18h contra a G2.",
+    "falar sobre o time": "O time da FURIA é formado por lendas do CS, com o capitão FalleN liderando com maestria!",
     "capitao": "O capitão do time de CS da FURIA é o FalleN.",
     "titulos": "A FURIA já conquistou mais de 10 títulos em torneios nacionais e internacionais.",
     "curiosidade": "Você sabia que a FURIA foi o primeiro time brasileiro a chegar ao top 3 do ranking mundial em 2020?",
@@ -55,21 +58,16 @@ def responder():
         if chave in mensagem:
             return jsonify({"resposta": respostas[chave]})
 
-    # Resposta com tema de torcida
-    resposta = random.choice(respostas_torcida)
+    resposta = random.choice(respostas_torcida + respostas_genericas)
     return jsonify({"resposta": resposta})
 
 @app.route("/jogo/atual", methods=["GET"])
 def jogo_atual():
-    # Pega o jogo "em andamento" ou o primeiro jogo na lista
-    jogo = jogos[0]
-    return jsonify(jogo)
+    return jsonify(jogos[0])
 
 @app.route("/jogo/proximo", methods=["GET"])
 def proximo_jogo():
-    # Pega o próximo jogo
-    jogo = jogos[1]
-    return jsonify(jogo)
+    return jsonify(jogos[1])
 
 @app.route("/")
 def index():

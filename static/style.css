@@ -3,14 +3,20 @@
 
 /* corpo e fonte */
 body {
-    background-color: #555;
+    background: url('https://www.csgowallpapers.com/assets/images/original/mossawi_152245956000_20190128150135_701922027894.jpg') no-repeat center center fixed;
+    background-size: cover;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     min-height: 100vh;
+    color: white;
+    text-align: center;
 }
+
+
+
 
 /* título */
 h1 {
@@ -271,4 +277,3 @@ button:hover {
   }
   
   /* Mantém seus estilos de chat (bolhas, input etc.) abaixo... */
-  

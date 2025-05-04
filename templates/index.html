@@ -8,35 +8,27 @@
 </head>
 <body>
   <h1>Chat FURIA</h1>
-  
-    <!-- Container principal: chat + status lado a lado -->
-    <div id="main-container">
-        <!-- Chat -->
-        <div id="chat-container">
-          <div id="chat-box"></div>
-          <div id="input-container">
-            <input type="text" id="input-msg" placeholder="Digite sua pergunta...">
-            <button onclick="enviarMensagem()">Enviar</button>
-          </div>
-        </div>
-    
-        <!-- Painel de status de jogos -->
-        <div id="status-container">
-          <h2>Status dos Jogos</h2>
-          <div id="jogo-atual" class="jogo-card"></div>
-          <div id="proximo-jogo" class="jogo-card"></div>
-          <!-- Link do WhatsApp -->
-          <div id="whatsapp-link">
-            <a href="https://wa.me/5511993404466" target="_blank">
-              Fale com a FURIA via WhatsApp 📲
-            </a>
-          </div>
-        </div>
+
+  <div id="main-container">
+    <div id="chat-container">
+      <div id="chat-box"></div>
+      <div id="input-container">
+        <input type="text" id="input-msg" placeholder="Digite sua pergunta...">
+        <button onclick="enviarMensagem()">Enviar</button>
       </div>
-    
+    </div>
+
+    <div id="status-container">
+      <h2>Status dos Jogos</h2>
+      <div id="jogo-atual" class="jogo-card"></div>
+      <div id="proximo-jogo" class="jogo-card"></div>
+      <div id="whatsapp-link">
+        <a href="https://wa.me/5511993404466" target="_blank">Fale com a FURIA via WhatsApp 📲</a>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // chama os endpoints e preenche o painel
     async function atualizarStatus() {
       const atual = await fetch('/jogo/atual').then(r => r.json());
       const prox  = await fetch('/jogo/proximo').then(r => r.json());
@@ -56,14 +48,11 @@
       `;
     }
 
-    // inicializa
     window.addEventListener('load', () => {
       atualizarStatus();
-      // opcional: atualiza a cada 30s
       setInterval(atualizarStatus, 30000);
     });
 
-    // resto do seu JS de chat...
     async function enviarMensagem() {
       const input = document.getElementById("input-msg");
       const msg = input.value.trim();
@@ -79,10 +68,11 @@
       });
       const dados = await res.json();
       setTimeout(() => {
-        chatBox.innerHTML += `<div class="mensagem bot"><b>Bot:</b> ${dados.resposta}</div>`;
+        chatBox.innerHTML += `<div class="mensagem bot"><b>FURIA:</b> ${dados.resposta}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
       }, 800);
     }
+
     document.getElementById("input-msg")
       .addEventListener("keydown", e => { if (e.key==="Enter") { e.preventDefault(); enviarMensagem(); } });
   </script>
