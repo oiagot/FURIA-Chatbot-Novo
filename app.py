@@ -20,6 +20,7 @@ respostas_genericas = [
     "Essa passou batida, mas não se preocupa... na próxima eu acerto! 🧠"
 ]
 
+# Respostas de torcida
 respostas_torcida = [
     "FURIAaaa, é nós! Vamos amassar esses caras! 💥",
     "O time tá voando, irmão! Que venha mais um título! 🏆",
@@ -28,10 +29,28 @@ respostas_torcida = [
     "Quem duvida da FURIA? Tá vendo o jogo? Tá chegando a hora! ⚡"
 ]
 
+# Dados sobre os jogos
+jogos = [
+    {
+        "id": 1,
+        "time1": "FURIA",
+        "time2": "G2",
+        "data": "2025-05-05 18:00",
+        "status": "Em andamento",
+    },
+    {
+        "id": 2,
+        "time1": "FURIA",
+        "time2": "Astralis",
+        "data": "2025-05-10 16:00",
+        "status": "Próximo jogo",
+    }
+]
+
 @app.route("/responder", methods=["POST"])
 def responder():
     mensagem = request.json["mensagem"].lower()
-    
+
     for chave in respostas:
         if chave in mensagem:
             return jsonify({"resposta": respostas[chave]})
@@ -40,20 +59,21 @@ def responder():
     resposta = random.choice(respostas_torcida)
     return jsonify({"resposta": resposta})
 
+@app.route("/jogo/atual", methods=["GET"])
+def jogo_atual():
+    # Pega o jogo "em andamento" ou o primeiro jogo na lista
+    jogo = jogos[0]
+    return jsonify(jogo)
+
+@app.route("/jogo/proximo", methods=["GET"])
+def proximo_jogo():
+    # Pega o próximo jogo
+    jogo = jogos[1]
+    return jsonify(jogo)
+
 @app.route("/")
 def index():
     return render_template("index.html")
-
-@app.route("/responder", methods=["POST"])
-def responder():
-    mensagem = request.json["mensagem"].lower()
-    
-    for chave in respostas:
-        if chave in mensagem:
-            return jsonify({"resposta": respostas[chave]})
-
-    resposta = random.choice(respostas_genericas)
-    return jsonify({"resposta": resposta})
 
 if __name__ == "__main__":
     app.run(debug=True)

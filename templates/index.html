@@ -1,58 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <script src="{{ url_for('static', filename='chat.js') }}"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat FURIA</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat FURIA</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Chat FURIA</h1>
-    <div id="chat-container">
-        <div id="chat-box"></div>
-        <div id="input-container">
+  <h1>Chat FURIA</h1>
+  
+    <!-- Container principal: chat + status lado a lado -->
+    <div id="main-container">
+        <!-- Chat -->
+        <div id="chat-container">
+          <div id="chat-box"></div>
+          <div id="input-container">
             <input type="text" id="input-msg" placeholder="Digite sua pergunta...">
             <button onclick="enviarMensagem()">Enviar</button>
-            <button id="back-button" onclick="voltarInicio()">Início</button>
+          </div>
         </div>
-    </div>
+    
+        <!-- Painel de status de jogos -->
+        <div id="status-container">
+          <h2>Status dos Jogos</h2>
+          <div id="jogo-atual" class="jogo-card"></div>
+          <div id="proximo-jogo" class="jogo-card"></div>
+          <!-- Link do WhatsApp -->
+          <div id="whatsapp-link">
+            <a href="https://wa.me/5511993404466" target="_blank">
+              Fale com a FURIA via WhatsApp 📲
+            </a>
+          </div>
+        </div>
+      </div>
+    
 
-    <script>
-        // Função para enviar a mensagem
-        async function enviarMensagem() {
-            const msg = document.getElementById("input-msg").value;
-            if (!msg) return;
-    
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div><b>Você:</b> ${msg}</div>`;
-    
-            // Limpa a caixa de entrada
-            document.getElementById("input-msg").value = "";
-    
-            // Envia a mensagem para o servidor
-            const resposta = await fetch("/responder", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({mensagem: msg})
-            });
-    
-            const dados = await resposta.json();
-            
-            // Simula o delay do bot para responder de forma mais natural
-            setTimeout(() => {
-                chatBox.innerHTML += `<div><b>Bot:</b> ${dados.resposta}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll para o final
-            }, 1000); // Delay de 1 segundo para simular o "pensamento" do bot
-        }
-    
-        // Adiciona o evento de tecla pressionada para enviar ao apertar "Enter"
-        document.getElementById("input-msg").addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Evita o comportamento padrão de enviar um "enter" no input
-                enviarMensagem();  // Chama a função de envio
-            }
-        });
-    </script>
+  <script>
+    // chama os endpoints e preenche o painel
+    async function atualizarStatus() {
+      const atual = await fetch('/jogo/atual').then(r => r.json());
+      const prox  = await fetch('/jogo/proximo').then(r => r.json());
+
+      document.getElementById('jogo-atual').innerHTML = `
+        <h3>Jogo em andamento</h3>
+        <p>${atual.time1} vs ${atual.time2}</p>
+        <p>${atual.data}</p>
+        <p><b>Status:</b> ${atual.status}</p>
+      `;
+
+      document.getElementById('proximo-jogo').innerHTML = `
+        <h3>Próximo jogo</h3>
+        <p>${prox.time1} vs ${prox.time2}</p>
+        <p>${prox.data}</p>
+        <p><b>Status:</b> ${prox.status}</p>
+      `;
+    }
+
+    // inicializa
+    window.addEventListener('load', () => {
+      atualizarStatus();
+      // opcional: atualiza a cada 30s
+      setInterval(atualizarStatus, 30000);
+    });
+
+    // resto do seu JS de chat...
+    async function enviarMensagem() {
+      const input = document.getElementById("input-msg");
+      const msg = input.value.trim();
+      if (!msg) return;
+      const chatBox = document.getElementById("chat-box");
+      chatBox.innerHTML += `<div class="mensagem usuario"><b>Você:</b> ${msg}</div>`;
+      input.value = ""; chatBox.scrollTop = chatBox.scrollHeight;
+
+      const res = await fetch("/responder", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({mensagem: msg})
+      });
+      const dados = await res.json();
+      setTimeout(() => {
+        chatBox.innerHTML += `<div class="mensagem bot"><b>Bot:</b> ${dados.resposta}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+    }
+    document.getElementById("input-msg")
+      .addEventListener("keydown", e => { if (e.key==="Enter") { e.preventDefault(); enviarMensagem(); } });
+  </script>
 </body>
 </html>
