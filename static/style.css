@@ -1,47 +1,127 @@
 /* reset básico */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* corpo e fonte */
-body {
-    background: url('https://www.csgowallpapers.com/assets/images/original/mossawi_152245956000_20190128150135_701922027894.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* wrapper para centralizar todo o conteúdo */
+  #wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
     min-height: 100vh;
-    color: white;
+    padding: 20px;
     text-align: center;
-}
-
-
-
-
-/* título */
-h1 {
-    color: #ffcc00;
+  }
+  
+  /* corpo e fonte */
+  body {
+    background: url('https://www.csgowallpapers.com/assets/images/original/mossawi_152245956000_20190128150135_701922027894.jpg')
+      no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  
+  /* título principal com glow intenso */
+  .main-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
     margin-bottom: 20px;
-    font-size: 2.5em;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-}
-
-/* container geral */
-#chat-container {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    letter-spacing: 3px;
+    color: #00ccff;
+    text-shadow:
+      0 0 8px rgba(0, 204, 255, 0.8),
+      0 0 16px rgba(0, 153, 204, 0.8);
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes glowPulse {
+    0%, 100% {
+      text-shadow:
+        0 0 8px rgba(0, 204, 255, 0.8),
+        0 0 16px rgba(0, 153, 204, 0.8);
+    }
+    50% {
+      text-shadow:
+        0 0 12px rgba(102, 224, 255, 0.9),
+        0 0 24px rgba(51, 204, 255, 0.9);
+    }
+  }
+  
+  /* títulos de seção (h2) com glow suave */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffcc00;
+    text-shadow:
+      0 0 4px rgba(255, 204, 0, 0.7),
+      0 0 8px rgba(255, 153, 0, 0.7);
+  }
+  
+  /* subtítulos (h3) gerados via JS */
+  .subsection-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #ffcc00;
+    text-shadow:
+      0 0 3px rgba(255, 204, 0, 0.6),
+      0 0 6px rgba(255, 153, 0, 0.6);
+  }
+  
+  /* container geral (chat + status) */
+  #main-container {
+    display: flex;
     width: 100%;
-    max-width: 600px;
+    max-width: 1000px;
+    gap: 20px;
+  }
+  
+  /* chat e status dividindo 50% cada */
+  #chat-container,
+  #status-container {
+    width: 50%;
+  }
+  
+  /* estilo do chat */
+  #chat-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     padding: 20px;
-}
-
-/* caixa de mensagens */
-#chat-box {
+  }
+  
+  /* menu rápido */
+  #quick-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .quick-btn {
+    background: rgba(242, 195, 0, 0.9);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .quick-btn:hover {
+    background: #ff9100;
+  }
+  
+  /* caixa de mensagens */
+  #chat-box {
     background-color: #1e1e1e;
     border-radius: 8px;
     height: 300px;
@@ -51,201 +131,89 @@ h1 {
     gap: 8px;
     padding: 10px;
     scroll-behavior: smooth;
-}
-
-/* bolhas de mensagem */
-.mensagem {
+  }
+  
+  /* bolhas de mensagem */
+  .mensagem {
     padding: 10px 15px;
     border-radius: 20px;
     max-width: 75%;
     word-wrap: break-word;
     animation: fadeIn 0.3s ease-in;
-}
-
-.usuario {
+  }
+  .usuario {
     background-color: #ffcc00;
     color: #111;
     align-self: flex-end;
     text-align: right;
-}
-
-.bot {
+  }
+  .bot {
     background-color: #333;
     color: #fff;
     align-self: flex-start;
     text-align: left;
-}
-
-/* entrada e botões */
-#input-container {
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* entrada e botão enviar */
+  #input-container {
     display: flex;
+    gap: 10px;
     margin-top: 15px;
-}
-
-#input-msg {
+  }
+  #input-msg {
     flex: 1;
     padding: 12px;
     border-radius: 15px;
-    border: 2px solid #ccc;
-    font-size: 1em;
-    margin-right: 10px;
-    transition: 0.3s;
-}
-
-#input-msg:focus {
+    border: 2px solid #333;
+    background: #222;
+    color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  #input-msg:focus {
     border-color: #ffcc00;
     box-shadow: 0 0 8px rgba(255,204,0,0.4);
     outline: none;
-}
-
-button {
+  }
+  #input-container button {
     padding: 12px 20px;
+    background-color: #ffcc00;
+    color: #111;
     border: none;
     border-radius: 15px;
-    font-size: 1em;
-    color: #fff;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-button:nth-of-type(1) {
-    background-color: #ffc400;
-    margin-right: 10px;
-}
-
-button:nth-of-type(1):hover {
+    transition: background 0.2s;
+  }
+  #input-container button:hover {
     background-color: #e6b800;
-}
-
-#back-button {
-    background-color: #ff6600;
-}
-
-#back-button:hover {
-    background-color: #e65c00;
-}
-
-/* animação */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Container flex para chat + status */
-#main-container {
-  display: flex;
-  gap: 20px;
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-  justify-content: space-between;
-}
-
-/* Ajustes no chat para ocupar 2/3 do espaço */
-#chat-container {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Painel de status ocupa 1/3, tamanho fixo para manter padronização */
-#status-container {
-  flex: 1;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  padding: 20px;
-  height: 100%; /* Torna o painel com altura total para manter a uniformidade */
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Espaçamento entre os cards */
-  justify-content: space-between; /* Alinha os cards uniformemente */
-}
-
-#status-container h2 {
-  color: #ffcc00;
-  margin-bottom: 10px;
-}
-
-/* Cards de status com altura fixa e tamanho proporcional */
-.jogo-card {
-  background: #222;
-  color: #fff;
-  padding: 15px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  flex: 1; /* Garante que ambos tenham a mesma altura */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* Ajustes no chat (bolhas, input etc.) */
-#chat-box {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-  background-color: #111;
-  margin-bottom: 10px;
-  border-radius: 10px;
-}
-
-#input-container {
-  display: flex;
-  gap: 10px;
-}
-
-#input-msg {
-  flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background-color: #222;
-  color: #fff;
-}
-
-button {
-  padding: 10px 15px;
-  background-color: #ffcc00;
-  color: #222;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #ffbb00;
-}
-
-/* Container flex para chat + status ---------------------------------------------------------*/
-#main-container {
-    display: flex;
-    gap: 20px;
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
   }
   
-  /* Ajuste: cada coluna com 50% da largura disponível */
-  #chat-container,
+  /* painel de status */
   #status-container {
-    width: 50%;
-  }
-  
-  /* Painel de status */
-  #status-container {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
+  #status-container h2 {
+    /* reutilizamos .section-title no HTML, mas deixei aqui por segurança */
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #ffcc00;
+    margin-bottom: 10px;
+    text-shadow:
+      0 0 4px rgba(255, 204, 0, 0.7),
+      0 0 8px rgba(255, 153, 0, 0.7);
+  }
   
-  /* Cards de status ocupando toda a largura do container */
+  /* cards de jogo */
   .jogo-card {
     background: #222;
     color: #fff;
@@ -254,26 +222,33 @@ button:hover {
     font-size: 0.9em;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
-  /* Link do WhatsApp estilizado */
+  /* botão WhatsApp */
   #whatsapp-link {
-    margin-top: auto; /* força ficar ao final do container */
     text-align: center;
   }
-  
-  #whatsapp-link a {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #25D366;
-    color: white;
+  #whatsapp-button {
+    padding: 12px 20px;
+    background-color: #25d366;
+    color: #fff;
+    border: none;
     border-radius: 5px;
-    text-decoration: none;
+    font-size: 1.1rem;
+    cursor: pointer;
     font-weight: bold;
   }
-  
-  #whatsapp-link a:hover {
-    background-color: #1DA851;
+  #whatsapp-button:hover {
+    background-color: #128c7e;
+  }
+  /* Ajuste de tamanho para ícones no chat */
+#chat-container img, #chat-container i {
+    width: 24px;  /* ou o tamanho desejado */
+    height: 24px; /* mantém proporção */
+    object-fit: contain; /* garante que o ícone não distorça */
+    margin-right: 8px; /* distância entre ícone e texto */
   }
   
-  /* Mantém seus estilos de chat (bolhas, input etc.) abaixo... */

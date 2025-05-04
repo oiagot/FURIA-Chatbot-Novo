@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # Respostas diretas baseadas em palavras-chave
 respostas = {
-    "introdução": "Fala, guerreiro! Eu sou a FURIA, o bot oficial da torcida mais insana do CS. Vamos conversar sobre o time mais brabo do cenário!",
+    "introdução": "Fala, guerreiro! Eu sou a FURIA, o bot oficial da torcida mais insana do CS. Vamos conversar?",
     "falar sobre jogos": "A FURIA joga sempre com garra! Nosso próximo desafio é contra a G2, vai ser imperdível!",
     "proximo jogo": "O próximo jogo da FURIA é dia 05/05 às 18h contra a G2.",
     "falar sobre o time": "O time da FURIA é formado por lendas do CS, com o capitão FalleN liderando com maestria!",
